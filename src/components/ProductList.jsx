@@ -1,24 +1,22 @@
-import { useContext, useEffect, useState } from 'react';
-
 import ProductShow from './ProductShow';
-import ProductsContext from '../contexts/products';
-function ProductList() {
-  const { fetchProducts } = useContext(ProductsContext);
-
-  const [products, setProducts] = useState([]);
-
-  useEffect(
-    () =>
-      fetchProducts().then(({ data: response }) => setProducts(response.data)),
-    []
-  );
-
+function ProductList({ products, onDelete }) {
+  console.log(products);
+  const handleClick = id => {
+    onDelete(id);
+  };
   return (
     <div>
       {products.map(product => (
-        <li key={product.id}>{product.title}</li>
+        <div key={product.id} className='d-flex'>
+          <ProductShow {...product} />
+          <button
+            className='btn btn-danger'
+            onClick={() => handleClick(product.id)}
+          >
+            Delete
+          </button>
+        </div>
       ))}
-      <ProductShow />
     </div>
   );
 }

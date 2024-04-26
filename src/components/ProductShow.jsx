@@ -1,12 +1,12 @@
-import { useContext } from 'react';
-import ProductsContext from '../contexts/products';
-
-function ProductShow() {
-  const value = useContext(ProductsContext);
-
-  console.log(value);
-
-  return <div>ProductShow</div>;
+function ProductShow({ title, desc, price }) {
+  return (
+    <div>
+      <h4>
+        {title} - {price} €
+      </h4>
+      <p>{desc}</p>
+    </div>
+  );
 }
 
 export default ProductShow;
