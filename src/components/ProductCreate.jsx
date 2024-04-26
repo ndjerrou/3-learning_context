@@ -20,7 +20,7 @@ function ProductCreate({ onCreate }) {
     } catch (err) {
       console.log(err.message);
 
-      onCreate();
+      onCreate(productAdded);
     }
   };
 

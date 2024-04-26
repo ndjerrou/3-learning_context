@@ -1,40 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useContext } from 'react';
 import ProductCreate from './components/ProductCreate.jsx';
 import ProductList from './components/ProductList.jsx';
 import axios from 'axios';
+import ProductsContext from './contexts/products.jsx';
 
 function App() {
-  const [products, setProducts] = useState([]);
+  const { fetchProducts, setProducts, products, onCreate, onDelete } =
+    useContext(ProductsContext);
 
   useEffect(() => {
-    axios('http://localhost:2000/products')
-      .then(({ data: response }) => setProducts(response.data))
-      .catch(err => console.log(err.message));
+    fetchProducts();
   }, []);
 
-  const createProduct = product => {
-    setProducts(...products, product);
-  };
-
-  const deleteProduct = async id => {
-    const originalProducts = [...products];
-
-    const filteredProducts = products.filter(product => product.id !== id);
-
-    setProducts(filteredProducts);
-
-    // optimistic
-    try {
-      await axios.delete(`http://localhost:2000/products/${id}`);
-    } catch (err) {
-      setProducts(originalProducts);
-    }
-  };
-
+  console.log('products = ', products);
   return (
     <div>
-      <ProductList products={products} onDelete={deleteProduct} />
-      <ProductCreate onCreate={createProduct} />
+      <ProductList products={products} onDelete={onDelete} />
+      <ProductCreate onCreate={onCreate} />
     </div>
   );
 }

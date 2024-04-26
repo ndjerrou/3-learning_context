@@ -1,6 +1,7 @@
 import ProductShow from './ProductShow';
 function ProductList({ products, onDelete }) {
   console.log(products);
+
   const handleClick = id => {
     onDelete(id);
   };
