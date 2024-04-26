@@ -5,7 +5,7 @@ import axios from 'axios';
 import ProductsContext from './contexts/products.jsx';
 
 function App() {
-  const { fetchProducts, setProducts, products, onCreate, onDelete } =
+  const { fetchProducts, setProducts, products, createProduct, deleteProduct } =
     useContext(ProductsContext);
 
   useEffect(() => {
@@ -15,8 +15,8 @@ function App() {
   console.log('products = ', products);
   return (
     <div>
-      <ProductList products={products} onDelete={onDelete} />
-      <ProductCreate onCreate={onCreate} />
+      <ProductList products={products} onDelete={deleteProduct} />
+      <ProductCreate onCreate={createProduct} />
     </div>
   );
 }
